@@ -3,6 +3,8 @@
 # License libre CC
 # Colin Laganier - Thomas Lemenestrel - 2017.12.13
 
-from pil import *
+from PIL import Image
 
-bite bite bite
+img = Image.open()
+
+
