@@ -4,3 +4,6 @@
 # Colin Laganier - Thomas Lemenestrel - 2017.12.13
 
 from tkinter import *
+
+def Ask_file():
+  image_link = 
