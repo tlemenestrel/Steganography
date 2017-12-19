@@ -5,6 +5,14 @@
 
 from PIL import Image
 
-img = Image.open()
+img = Image.open(imgName)
+
+largeur = img.width
+hauteur = img.height
+red,green,blue = img.split()
+redPix = list(red.getdata())
+
+longeurText = len(textEntre)
+longeurBin = 
 
 
