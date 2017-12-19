@@ -3,7 +3,29 @@
 # License libre CC
 # Colin Laganier - Thomas Lemenestrel - 2017.12.13
 
+from tkinter import filedialog
+
 from tkinter import *
 
-def Ask_file():
-  image_link = 
+root = Tk() # On crée une fenêtre
+root.geometry('1000x1000') # On donne les dimensions de la fenêtre
+
+def InsertImg():
+	imgName = filedialog.askopenfilename(initialdir = "/",title = "Choisir image",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
+	print(imgName)
+
+def InsertText():
+	tkMessageBox.showinfo("Le text introduit est trop long pour le programme!")	
+
+boutonInsertImg = Button(root, text ='Insert Image', command = InsertImg)
+boutonInsertImg.pack(side = LEFT, padx = 5, pady = 5)
+
+boutonInsertText = Button(root,text = 'Insert Text', command = InsertText)
+boutonInsertText.pack(side = RIGHT, padx = 5, pady = 5)
+
+entreText = stringVar()
+boite = Entry(root, textvariable = entreText, show = '*')
+boite.focus_set()
+boite.pack(side = TOP, pady = 5)
+
+root.mainloop()
