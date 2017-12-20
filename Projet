@@ -13,6 +13,6 @@ red,green,blue = img.split()
 redPix = list(red.getdata())
 
 longeurText = len(textEntre)
-longeurBin = 
+longeurBin = bin(len(c))[2:].rjust(8,"0")
 
 
