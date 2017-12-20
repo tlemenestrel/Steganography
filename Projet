@@ -4,7 +4,7 @@
 # Colin Laganier - Thomas Lemenestrel - 2017.12.13
 
 from PIL import Image
-
+from interface import *
 img = Image.open(imgName)
 
 largeur = img.width
