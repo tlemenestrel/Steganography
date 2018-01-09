@@ -6,28 +6,51 @@
 from tkinter.filedialog import *
 from tkinter.messagebox import *
 from tkinter import *
-
+from PIL import Image
 
 root = Tk() # On crée une fenêtre
 root.geometry('500x500') # On donne les dimensions de la fenêtre
 
-def InsertImg():
-	imgName = filedialog.askopenfilename(initialdir = "/",title = "Choisir image",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
-	print(imgName)
+imgName = 0
 
-def InsertText():
-    if (len(entreText)*8+8)>100:
-        showinfo("Erreur", "Le text introduit est trop long pour l'image donnée !")
+frameTitle = Frame(root, bg="yellow", colormap="new")
+frameTitle.pack(side=TOP)
+frameImg = Frame(root, bg="red", colormap="new") 
+frameImg.pack()
+frameTxt = Frame(root, bg="blue", colormap="new")
+frameTxt.pack()
+
+title = Label(frameTitle, text="Stéganographie")
+title.pack()
+
+def InsertImg():
+    imgName = filedialog.askopenfilename(initialdir = "/",title = "Choisir image",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
+    photo = PhotoImage(file = ImgName)
+    insert = canvas.create_image(250,250, image = photo)
+    
+canvas = Canvas(root)
+canvas.pack()
 
 boutonInsertImg = Button(root, text ='Insert Image', command = InsertImg)
 boutonInsertImg.pack(side = LEFT, padx = 5, pady = 5)
 
+imgBrut = Image.open(imgName)
+hauteur = imgBrut.height
+largeur = imgBrut.width
+
+
+def InsertText():
+    if imgName == 0:
+        showinfo("Erreur", "Il faut inseré une image pour faire fonctionner le programme !")
+    elif (len(entreText.get())*8+8) > (hauteur*largeur):
+        showinfo("Erreur", "Le text introduit est trop long pour l'image donnée !")
+
 entreText = StringVar()
-boite = Entry(root, textvariable = entreText, bg = 'dark turquoise')
+boite = Entry(root, textvariable = entreText, bg = 'dark turquoise', width = '40')
 boite.focus_set()
 boite.pack(side = TOP, padx = 5, pady = 5)
 
 boutonInsertText = Button(root,text = 'Insert Text', command = InsertText)
 boutonInsertText.pack(side = RIGHT, padx = 5, pady = 5)
 
-root.mainloop()
+root.mainloop() # On démarre la boucle Tkinter qui s'interompt quand on ferme la fenêtre
