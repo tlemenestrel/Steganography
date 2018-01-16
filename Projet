@@ -9,30 +9,28 @@ img = Image.open(imgName) # On importe l'image dans laquelle on va mettre le mes
 Texte = "Je m'appelle Thomas"
 
 largeur = img.width 
-hauteur = img.height
-red,green,blue = img.split()# On divise l'image en pixels RVB
-redPix = list(red.getdata())# On importe la liste 
+largeur = img.height
+red,green,blue = img.split() # On divise l'image en pixels RVB
+redPix = list(red.getdata()) # On importe la liste 
 
 longueurText = len(Texte)
 longueurBin = bin(len(c))[2:].rjust(8,"0")
 
-chaineBinaire=[bin(ord(x))[2:].rjust(8,"0") for x in Texte]
-#transformation de la liste en chaine
-a=''.join(chaineBinaire)# On transforme la liste en chaine
-#on code la longueur de la liste dans les 8 premiers pixels rouges
+ListeBinaire=[bin(ord(x))[2:].rjust(8,"0") for x in Texte]
+ChaineBinaire=''.join(ListeBinaire) # On transforme la liste en chaine
 for j in range(8):
-    r[j]=2*int(r[j]//2)+int(v[j])
+    redPix[j]=2*int(redPix[j]//2)+int(longueurBin[j]) # On insère la longueur de la liste dans les 8 premiers pixels
 
 #on code la chaine dans les pixels suivants
-for i in range(8*u):
-    r[i+8]=2*int(r[i+8]//2)+int(a[i])
+for i in range(8*longueurText):
+    redPix[i+8]=2*int(redPix[i+8]//2)+int(ChaineBinaire[i])
 #on recrée l'image rouge 
-nr = Image.new("L",(16*p,16*q))
-nr = Image.new("L",(w,h))
-nr.putdata(r)
+ImageRefaite = Image.new("L",(16*p,16*q))
+ImageRefaite = Image.new("L",(largeur,hauteur))
+ImageRefaite.putdata(redPix)
 #fusion des trois nouvelles images
-imgnew = Image.merge('RGB',(nr,g,b)) 
-imgnew.save("couverture.png") 
+ImageFinale = Image.merge('RGB',(ImageRefaite,g,b)) 
+ImageFinale.save("Stéganographie.png") 
 
 
 
