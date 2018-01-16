@@ -6,38 +6,48 @@
 from tkinter.filedialog import *
 from tkinter.messagebox import *
 from tkinter import *
-from PIL import Image
+from PIL import Image, ImageTk
 
 root = Tk() # On crée une fenêtre
-root.geometry('500x500') # On donne les dimensions de la fenêtre
+root.geometry('800x600') # On donne les dimensions de la fenêtre
+root.configure(background='#333d4f')
 
 imgName = 0
 
 frameTitle = Frame(root, bg="yellow", colormap="new")
 frameTitle.pack(side=TOP)
-frameImg = Frame(root, bg="red", colormap="new") 
-frameImg.pack()
-frameTxt = Frame(root, bg="blue", colormap="new")
-frameTxt.pack()
 
-title = Label(frameTitle, text="Stéganographie")
+title = Label(frameTitle, text="STEGANOGRAPHIE", bg="#333d4f", fg="white", font=("Helvetica", 16))
 title.pack()
 
+frameImg = Frame(root, bg="red", colormap="new")
+frameImg.pack(side = TOP, pady = 20)
+
+canvas = Canvas(frameImg, width=500, height=350)
+canvas.pack(side=LEFT)
+
+canvas.create_rectangle(0, 0, 500, 350, fill="purple")
+canvas.pack(side=LEFT)
+
 def InsertImg():
-    imgName = filedialog.askopenfilename(initialdir = "/",title = "Choisir image",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
-    photo = PhotoImage(file = ImgName)
-    insert = canvas.create_image(250,250, image = photo)
-    
-canvas = Canvas(root)
-canvas.pack()
+    imgName = filedialog.askopenfilename(initialdir = "/",title = "Choisir image",filetypes = (("gif files","*.gif"),("all files","*.*")))
+    image = Image.open(imgName)
+    imgBrut= ImageTk.PhotoImage(image)
+    label = Label(canvas, image=imgBrut)
+    label.image = imgBrut
+    label.pack()
 
-boutonInsertImg = Button(root, text ='Insert Image', command = InsertImg)
-boutonInsertImg.pack(side = LEFT, padx = 5, pady = 5)
+boutonInsertImg = Button(frameImg, text ='Insert Image', command = InsertImg)
+boutonInsertImg.pack(side = LEFT, padx = 5)
 
-imgBrut = Image.open(imgName)
-hauteur = imgBrut.height
-largeur = imgBrut.width
+frameVar = Frame(root, bg="pink", colormap="new")
+frameVar.pack(side = TOP)
 
+check = Checkbutton(frameVar, text="Traitement d'image à text", variable = IntVar())
+check.pack(side = LEFT)
+
+frameTxt = Frame(root, bg="blue", colormap="new")
+frameTxt.pack(side = TOP, pady = 20)
 
 def InsertText():
     if imgName == 0:
@@ -46,11 +56,23 @@ def InsertText():
         showinfo("Erreur", "Le text introduit est trop long pour l'image donnée !")
 
 entreText = StringVar()
-boite = Entry(root, textvariable = entreText, bg = 'dark turquoise', width = '40')
+boite = Entry(frameTxt, textvariable = entreText, bg = 'green', width = '40')
 boite.focus_set()
-boite.pack(side = TOP, padx = 5, pady = 5)
+boite.pack(side = LEFT, ipady = 15)
 
-boutonInsertText = Button(root,text = 'Insert Text', command = InsertText)
-boutonInsertText.pack(side = RIGHT, padx = 5, pady = 5)
+boutonInsertText = Button(frameTxt,text = 'Insert Text', command = InsertText)
+boutonInsertText.pack(side = LEFT, padx = 10)
+
+frameSup = Frame(root, bg="pink", colormap="new")
+frameSup.pack(side = TOP, pady = 13)
+
+def InsertInfo():
+	showinfo("Info", "Ce programme dissimule du texte dans une image, et permet de lire le texte dissimuler dans une image donnée.")
+
+boutonInfo = Button(frameSup, text='Info', command = InsertInfo)
+boutonInfo.pack(side = RIGHT)
+
+boutonExit = Button(frameSup, text='Exit', command = root.destroy)
+boutonExit.pack(side = RIGHT)
 
 root.mainloop() # On démarre la boucle Tkinter qui s'interompt quand on ferme la fenêtre
