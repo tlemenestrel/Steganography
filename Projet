@@ -5,14 +5,34 @@
 
 from PIL import Image
 from interface import *
-img = Image.open(imgName)
+img = Image.open(imgName) # On importe l'image dans laquelle on va mettre le message
+Texte = "Je m'appelle Thomas"
 
-largeur = img.width
+largeur = img.width 
 hauteur = img.height
-red,green,blue = img.split()
-redPix = list(red.getdata())
+red,green,blue = img.split()# On divise l'image en pixels RVB
+redPix = list(red.getdata())# On importe la liste 
 
-longeurText = len(textEntre)
-longeurBin = bin(len(c))[2:].rjust(8,"0")
+longueurText = len(Texte)
+longueurBin = bin(len(c))[2:].rjust(8,"0")
+
+chaineBinaire=[bin(ord(x))[2:].rjust(8,"0") for x in Texte]
+#transformation de la liste en chaine
+a=''.join(chaineBinaire)# On transforme la liste en chaine
+#on code la longueur de la liste dans les 8 premiers pixels rouges
+for j in range(8):
+    r[j]=2*int(r[j]//2)+int(v[j])
+
+#on code la chaine dans les pixels suivants
+for i in range(8*u):
+    r[i+8]=2*int(r[i+8]//2)+int(a[i])
+#on recrée l'image rouge 
+nr = Image.new("L",(16*p,16*q))
+nr = Image.new("L",(w,h))
+nr.putdata(r)
+#fusion des trois nouvelles images
+imgnew = Image.merge('RGB',(nr,g,b)) 
+imgnew.save("couverture.png") 
+
 
 
