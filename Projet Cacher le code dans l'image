@@ -9,7 +9,7 @@ img = Image.open(imgName) # On importe l'image dans laquelle on va mettre le mes
 Texte = entreTxt # On importe le texte depuis l'interface TKinter
 
 largeur = img.width # On mesure la longueur de l'image
-largeur = img.height # On mesure la hauteur de l'image
+hauteur = img.height # On mesure la hauteur de l'image
 red,green,blue = img.split() # On divise l'image en pixels RVB
 redPix = list(red.getdata()) # On importe la liste
 
@@ -30,4 +30,3 @@ ImageRefaite.putdata(redPix)
 
 ImageFinale = Image.merge('RGB',(ImageRefaite,g,b)) # On fusionne les trois images RGB pour donner l'image finale
 ImageFinale.save("Stéganographie.png")
-
