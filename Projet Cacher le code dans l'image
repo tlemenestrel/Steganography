@@ -31,5 +31,4 @@ ImageRefaite.putdata(redPix)
 #fusion des trois nouvelles images
 ImageFinale = Image.merge('RGB',(ImageRefaite,g,b)) 
 ImageFinale.save("Stéganographie.png") 
-if "Stéganographie.png"  == true:
-	ImageFinale.save("Stéganographie.png")
+
