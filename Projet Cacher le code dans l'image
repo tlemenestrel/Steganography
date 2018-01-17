@@ -25,7 +25,7 @@ for i in range(8*longueurText): # On code la chaine dans les pixels suivants
     redPix[i+8]=2*int(redPix[i+8]//2)+int(ChaineBinaire[i])
 
 ImageRefaite = Image.new("L",(16*p,16*q)) # On recrée l'image rouge
-ImageRefaite = Image.new("L",(largeur,hauteur))
+ImageRefaite = Image.new("L",(largeur,hauteur)) # L est une image en 8 Bit en Black and White
 ImageRefaite.putdata(redPix)
 
 ImageFinale = Image.merge('RGB',(ImageRefaite,g,b)) # On fusionne les trois images RGB pour donner l'image finale
