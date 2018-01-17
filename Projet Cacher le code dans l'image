@@ -13,13 +13,13 @@ largeur = img.height
 red,green,blue = img.split() # On divise l'image en pixels RVB
 redPix = list(red.getdata()) # On importe la liste 
 
-longueurText = len(Texte)
-longueurBin = bin(len(c))[2:].rjust(8,"0")
+longTxt = len(Texte)
+longBin = bin(len(longTxt))[2:].rjust(8,"0")
 
 ListeBinaire=[bin(ord(x))[2:].rjust(8,"0") for x in Texte]
 ChaineBinaire=''.join(ListeBinaire) # On transforme la liste en chaine
 for j in range(8):
-    redPix[j]=2*int(redPix[j]//2)+int(longueurBin[j]) # On insère la longueur de la liste dans les 8 premiers pixels
+    redPix[j]=2*int(redPix[j]//2)+int(longBin[j]) # On insère la longueur de la liste dans les 8 premiers pixels
 
 #on code la chaine dans les pixels suivants
 for i in range(8*longueurText):
@@ -31,6 +31,5 @@ ImageRefaite.putdata(redPix)
 #fusion des trois nouvelles images
 ImageFinale = Image.merge('RGB',(ImageRefaite,g,b)) 
 ImageFinale.save("Stéganographie.png") 
-
-
-
+if "Stéganographie.png"  == true:
+	ImageFinale.save("Stéganographie.png")
