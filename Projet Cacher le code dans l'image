@@ -11,7 +11,7 @@ Texte = entreTxt # On importe le texte depuis l'interface TKinter
 largeur = img.width # On mesure la longueur de l'image
 hauteur = img.height # On mesure la hauteur de l'image
 red,green,blue = img.split() # On divise l'image en pixels RVB
-redPix = list(red.getdata()) # On importe la liste
+redPix = list(red.getdata()) # On importe la liste en binaire des pixels rouge
 
 longTxt = len(Texte) # On mesure le nombre de caractères du texte
 longBin = bin(len(longTxt))[2:].rjust(8,"0") # On mesure la longueur en binaire du texte
