@@ -6,29 +6,28 @@
 from PIL import Image
 from interface import *
 img = Image.open(imgName) # On importe l'image dans laquelle on va mettre le message
-Texte = "Je m'appelle Thomas"
+Texte = entreTxt # On importe le texte depuis l'interface TKinter
 
-largeur = img.width 
-largeur = img.height
+largeur = img.width # On mesure la longueur de l'image
+largeur = img.height # On mesure la hauteur de l'image
 red,green,blue = img.split() # On divise l'image en pixels RVB
-redPix = list(red.getdata()) # On importe la liste 
+redPix = list(red.getdata()) # On importe la liste
 
-longTxt = len(Texte)
-longBin = bin(len(longTxt))[2:].rjust(8,"0")
+longTxt = len(Texte) # On mesure le nombre de caractères du texte
+longBin = bin(len(longTxt))[2:].rjust(8,"0") # On mesure la longueur en binaire du texte
 
-ListeBinaire=[bin(ord(x))[2:].rjust(8,"0") for x in Texte]
+ListeBinaire=[bin(ord(x))[2:].rjust(8,"0") for x in Texte] # On transforme le texte en binaire
 ChaineBinaire=''.join(ListeBinaire) # On transforme la liste en chaine
-for j in range(8):
-    redPix[j]=2*int(redPix[j]//2)+int(longBin[j]) # On insère la longueur de la liste dans les 8 premiers pixels
+for j in range(8): # On insère la longueur de la liste dans les 8 premiers pixels
+    redPix[j]=2*int(redPix[j]//2)+int(longBin[j]) 
 
-#on code la chaine dans les pixels suivants
-for i in range(8*longueurText):
+for i in range(8*longueurText): # On code la chaine dans les pixels suivants
     redPix[i+8]=2*int(redPix[i+8]//2)+int(ChaineBinaire[i])
-#on recrée l'image rouge 
-ImageRefaite = Image.new("L",(16*p,16*q))
+
+ImageRefaite = Image.new("L",(16*p,16*q)) # On recrée l'image rouge
 ImageRefaite = Image.new("L",(largeur,hauteur))
 ImageRefaite.putdata(redPix)
-#fusion des trois nouvelles images
-ImageFinale = Image.merge('RGB',(ImageRefaite,g,b)) 
-ImageFinale.save("Stéganographie.png") 
+
+ImageFinale = Image.merge('RGB',(ImageRefaite,g,b)) # On fusionne les trois images RGB pour donner l'image finale
+ImageFinale.save("Stéganographie.png")
 
