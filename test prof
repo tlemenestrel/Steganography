@@ -2,16 +2,16 @@
 
 from PIL import Image
 im = Image.open("/Users/colinlaganier/Desktop/duck.png")
-#on rÃ©cupÃ¨re les dimensions de l'image
+#on récupère les dimensions de l'image
 w,h=im.size
-#On Ã©clate l'image en trois (rouge vert bleu)
+#On éclate l'image en trois (rouge vert bleu)
 r,g,b,t=im.split()
 #on transforme l'image en liste
 r=list(r.getdata())
 print(r[2:30])
 
-#le message Ã   coder
-c="Il faut blanchir les champignons! Ou un truc comme Ã§a... dans le genre moisi, quoi"
+#le message à  coder
+c="Il faut blanchir les champignons! Ou un truc comme ca... dans le genre moisi, quoi"
 #on note la longueur de la chaine et on la transforme en binaire
 u=len(c)
 v=bin(len(c))[2:].rjust(8,"0")
@@ -26,10 +26,10 @@ for j in range(8):
 #on code la chaine dans les pixels suivants
 for i in range(8*u):
     r[i+8]=2*int(r[i+8]//2)+int(a[i])
-#on recrÃ©e l'image rouge 
+#on recrée l'image rouge 
 nr = Image.new("L",(w,h))
 nr.putdata(r)
 #fusion des trois nouvelles images
 imgnew = Image.merge('RGBA',(nr,g,b,t)) 
 imgnew.save("couverture.png")
-print(nr[2:30])
+print(r[2:30])
