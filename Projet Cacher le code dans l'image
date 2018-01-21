@@ -4,7 +4,8 @@
 # Colin Laganier - Thomas Lemenestrel - 2017.12.13
 
 from PIL import Image
-from interface import *
+import interface
+
 img = Image.open(imgName) # On importe l'image dans laquelle on va mettre le message
 Texte = entreTxt # On importe le texte depuis l'interface TKinter
 
