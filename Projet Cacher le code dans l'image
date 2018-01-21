@@ -4,10 +4,10 @@
 # Colin Laganier - Thomas Lemenestrel - 2017.12.13
 
 from PIL import Image
-import interface
 
-img = Image.open(imgName) # On importe l'image dans laquelle on va mettre le message
-Texte = entreTxt # On importe le texte depuis l'interface TKinter
+
+img = Image.open("/Users/colinlaganier/Desktop/dog.jpg") # On importe l'image dans laquelle on va mettre le message
+Texte = "quelque chose de bien" # On importe le texte depuis l'interface TKinter
 
 largeur = img.width # On mesure la longueur de l'image
 hauteur = img.height # On mesure la hauteur de l'image
@@ -15,19 +15,19 @@ red,green,blue = img.split() # On divise l'image en pixels RVB
 redPix = list(red.getdata()) # On importe la liste en binaire des pixels rouge
 
 longTxt = len(Texte) # On mesure le nombre de caractères du texte
-longBin = bin(len(longTxt))[2:].rjust(8,"0") # On mesure la longueur en binaire du texte
+longBin = bin(longTxt)[2:].rjust(8,"0") # On mesure la longueur en binaire du texte
 
 ListeBinaire=[bin(ord(x))[2:].rjust(8,"0") for x in Texte] # On transforme le texte en binaire
 ChaineBinaire=''.join(ListeBinaire) # On transforme la liste en chaine
 for j in range(8): # On insère la longueur de la liste dans les 8 premiers pixels
     redPix[j]=2*int(redPix[j]//2)+int(longBin[j]) 
 
-for i in range(8*longueurText): # On code la chaine dans les pixels suivants
+for i in range(8*longTxt): # On code la chaine dans les pixels suivants
     redPix[i+8]=2*int(redPix[i+8]//2)+int(ChaineBinaire[i])
 
 ImageRefaite = Image.new("L",(16*p,16*q)) # On recrée l'image rouge
-ImageRefaite = Image.new("L",(largeur,hauteur)) # L est une image en 8 Bit en Black and White
+ImageRefaite = Image.new("L",(largeur,hauteur)) # "L" pour obtenir une image avec seulement un faisceau/une couleur
 ImageRefaite.putdata(redPix)
 
 ImageFinale = Image.merge('RGB',(ImageRefaite,g,b)) # On fusionne les trois images RGB pour donner l'image finale
-ImageFinale.save("Stéganographie.png")
+ImageFinale.save("Stéganographie.jpg")
