@@ -1,35 +1,21 @@
 #-*- coding:Latin-1 -*-
 
 from PIL import Image
-im = Image.open("/Users/colinlaganier/Desktop/duck.png")
-#on rÃ©cupÃ¨re les dimensions de l'image
-w,h=im.size
-#On Ã©clate l'image en trois (rouge vert bleu)
+im = Image.open("/Users/colinlaganier/Desktop/couverture.png")
 r,g,b,t=im.split()
-#on transforme l'image en liste
 r=list(r.getdata())
-print(r[2:30])
+#lecture de la longueur de la chaine
+p=[str(x%2) for x in r[0:8]]
+q="".join(p)
+q=int(q,2)
+#lecture du message
+n=[str(x%2) for x in r[8:8*(q+1)]]
 
-#le message Ã   coder
-c="Il faut blanchir les champignons! Ou un truc comme Ã§a... dans le genre moisi, quoi"
-#on note la longueur de la chaine et on la transforme en binaire
-u=len(c)
-v=bin(len(c))[2:].rjust(8,"0")
-#on transforme la chaine en une liste de 0 et de 1 
-ascii=[bin(ord(x))[2:].rjust(8,"0") for x in c]
-#transformation de la liste en chaine
-a=''.join(ascii)
-#on code la longueur de la liste dans les 8 premiers pixels rouges
-for j in range(8):
-    r[j]=2*int(r[j]//2)+int(v[j])
+b="".join(n)
+message=""
 
-#on code la chaine dans les pixels suivants
-for i in range(8*u):
-    r[i+8]=2*int(r[i+8]//2)+int(a[i])
-#on recrÃ©e l'image rouge 
-nr = Image.new("L",(w,h))
-nr.putdata(r)
-#fusion des trois nouvelles images
-imgnew = Image.merge('RGBA',(nr,g,b,t)) 
-imgnew.save("couverture.png")
-print(nr[2:30])
+for k in range(0,q):
+    l=b[8*k:8*k+8]
+    message=message+chr(int(l,2))
+print(message)   
+
