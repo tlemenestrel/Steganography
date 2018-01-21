@@ -1,19 +1,22 @@
+#-*- coding:Latin-1 -*-
 
-import Image
-im = Image.open("couverture.png")
-r,g,b=im.split()
+from PIL import Image
+im = Image.open("/Users/TLM/Desktop/Stéganographie.png")
+r,g,b,t=im.split()
 redPix2=list(r.getdata())
 #lecture de la longueur de la chaine
-p=[str(x%2) for x in redPix2[0:8]]
-q="".join(p)
-q=int(q,2)
+Liste=[str(x%2) for x in redPix2[0:8]]
+String="".join(Liste)
+
+String=int(String,2)
 #lecture du message
-n=[str(x%2) for x in redPix2[8:8*(q+1)]]
+n=[str(x%2) for x in redPix2[8:8*(String+1)]]
 
 b="".join(n)
 message=""
 
-for k in range(0,q):
+for k in range(0,String):
     l=b[8*k:8*k+8]
     message=message+chr(int(l,2))
-print (message) 
+print(message)
+
