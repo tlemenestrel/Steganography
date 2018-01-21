@@ -31,7 +31,7 @@ canvas.pack(side=LEFT)
 
 def InsertImg():
 	global imgName, largeur, hauteur
-	imgName = filedialog.askopenfilename(initialdir = "/",title = "Choisir image",filetypes = (("gif files","*.gif"),("all files","*.*")))
+	imgName = filedialog.askopenfilename(initialdir = "/",title = "Choisir image",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
 	image = Image.open(imgName)
 	largeur, hauteur = image.size
 	imgBrut= ImageTk.PhotoImage(image)
@@ -116,7 +116,7 @@ frameSup = Frame(root, bg="pink", colormap="new")
 frameSup.pack(side = TOP, pady = 13)
 
 def InsertInfo():
-	print(boite1.winfo_exists())
+	print(entreTxt.get())
 
 boutonInfo = Button(frameSup, text='Info', command = InsertInfo)
 boutonInfo.pack(side = RIGHT)
