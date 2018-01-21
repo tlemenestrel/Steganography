@@ -17,57 +17,106 @@ imgName = 0
 frameTitle = Frame(root, bg="yellow", colormap="new")
 frameTitle.pack(side=TOP)
 
-title = Label(frameTitle, text="STEGANOGRAPHIE", bg="#333d4f", fg="white", font=("Helvetica", 16))
+title = Label(frameTitle, text="STEGANOGRAPHIE", bg="#333d4f", fg="white", font=("Helvetica", 16)) # Titre du programme à display
 title.pack()
 
-frameImg = Frame(root, bg="red", colormap="new")
-frameImg.pack(side = TOP, pady = 20)
+frameImg = Frame(root, bg="light grey", colormap="new")
+frameImg.pack(side = TOP, pady = 3)
 
-canvas = Canvas(frameImg, width=500, height=350)
+canvas = Canvas(frameImg, width=500, height=350) # Création d'une zone canvas
 canvas.pack(side=LEFT)
 
-canvas.create_rectangle(0, 0, 500, 350, fill="purple")
+canvas.create_rectangle(0, 0, 500, 350, fill="white") # Création d'un rectangle pour indiquer où l'image inséré sera placer
 canvas.pack(side=LEFT)
 
 def InsertImg():
-    imgName = filedialog.askopenfilename(initialdir = "/",title = "Choisir image",filetypes = (("gif files","*.gif"),("all files","*.*")))
-    image = Image.open(imgName)
-    imgBrut= ImageTk.PhotoImage(image)
-    label = Label(canvas, image=imgBrut)
-    label.image = imgBrut
-    label.pack()
+	global imgName, largeur, hauteur
+	imgName = filedialog.askopenfilename(initialdir = "/",title = "Choisir image",filetypes = (("gif files","*.gif"),("all files","*.*")))
+	image = Image.open(imgName)
+	largeur, hauteur = image.size
+	imgBrut= ImageTk.PhotoImage(image)
+	labelImg = Label(canvas, image = imgBrut)
+	labelImg.image = imgBrut
+	labelImg.pack()
 
-boutonInsertImg = Button(frameImg, text ='Insert Image', command = InsertImg)
+boutonInsertImg = Button(frameImg, text = 'Insert Image', command = InsertImg)
 boutonInsertImg.pack(side = LEFT, padx = 5)
 
 frameVar = Frame(root, bg="pink", colormap="new")
 frameVar.pack(side = TOP)
 
-check = Checkbutton(frameVar, text="Traitement d'image à text", variable = IntVar())
-check.pack(side = LEFT)
-
-frameTxt = Frame(root, bg="blue", colormap="new")
-frameTxt.pack(side = TOP, pady = 20)
-
 def InsertText():
     if imgName == 0:
         showinfo("Erreur", "Il faut inseré une image pour faire fonctionner le programme !")
-    elif (len(entreText.get())*8+8) > (hauteur*largeur):
+    elif (len(entreTxt.get())*8+8) > (hauteur*largeur):
         showinfo("Erreur", "Le text introduit est trop long pour l'image donnée !")
 
-entreText = StringVar()
-boite = Entry(frameTxt, textvariable = entreText, bg = 'green', width = '40')
-boite.focus_set()
-boite.pack(side = LEFT, ipady = 15)
+def fonctionEntre():
+    if boite3.winfo_exists() == 1:
+        boite3.destroy()
+    elif boiteStart1.winfo_exists() == 1:
+    	boiteStart1.destroy()
+    	boiteStart2.destroy()
+    	boutonInsertTextStart.destroy()
+    global entreTxt, boite1, boite2, boutonInsertText
+    entreTxt = StringVar()
+    boite1 = Entry(frameTxt, textvariable = entreTxt, bg = '#009999', width = '40')
+    boite1.insert(0, 'Texte à dissimuler')
+    boite1.bind("<FocusIn>", lambda args: boite1.delete('0', 'end'))
+    boite1.pack(side = LEFT, ipady = 15)
+    entreNom = StringVar()
+    boite2 = Entry(frameTxt, textvariable = entreNom, bg = '#009999', width = '15')
+    boite2.insert(0, 'Nouveau nom')
+    boite2.bind("<FocusIn>", lambda args: boite2.delete('0', 'end'))
+    boite2.pack(side = LEFT, padx = 20, ipady = 15)
+    boutonInsertText = Button(frameTxt,text = 'Insert Text', command = InsertText)
+    boutonInsertText.pack(side = LEFT, padx = 10)        
 
-boutonInsertText = Button(frameTxt,text = 'Insert Text', command = InsertText)
-boutonInsertText.pack(side = LEFT, padx = 10)
+def fonctionSortie():
+    if boiteStart1.winfo_exists() == 1:
+    	boiteStart1.destroy()
+    	boiteStart2.destroy()
+    	boutonInsertTextStart.destroy()
+    elif boite1.winfo_exists() == 1:
+        boite1.destroy()
+        boite2.destroy()
+        boutonInsertText.destroy()
+    global entreTxt, boite3
+    entreTxt = StringVar()
+    boite3 = Entry(frameTxt, textvariable = entreTxt, bg = '#009999', width = '40')
+    boite3.insert(0, 'machin truc')
+    boite3.bind("<FocusIn>", lambda args: boite3.delete('0', 'end'))
+    boite3.pack(side = LEFT, ipady = 15)
+
+boutonEntre = Button(frameVar, text='Entre', command = fonctionEntre)
+boutonEntre.pack(side = LEFT)
+
+boutonSortie = Button(frameVar, text='Sortie', command = fonctionSortie)
+boutonSortie.pack(side = LEFT)
+
+
+frameTxt = Frame(root, bg="#333d4f", colormap="new")
+frameTxt.pack(side = TOP, pady = 20)
+
+global entreTxt, boite1, boite2, boutonInsertText
+entreTxt = StringVar()
+boiteStart1 = Entry(frameTxt, textvariable = entreTxt, bg = '#009999', width = '40')
+boiteStart1.insert(0, 'Texte à dissimuler')
+boiteStart1.bind("<FocusIn>", lambda args: boiteStart1.delete('0', 'end'))
+boiteStart1.pack(side = LEFT, ipady = 15)
+entreNom = StringVar()
+boiteStart2 = Entry(frameTxt, textvariable = entreNom, bg = '#009999', width = '15')
+boiteStart2.insert(0, 'Nouveau nom')
+boiteStart2.bind("<FocusIn>", lambda args: boiteStart2.delete('0', 'end'))
+boiteStart2.pack(side = LEFT, padx = 20, ipady = 15)
+boutonInsertTextStart = Button(frameTxt,text = 'Insert Text', command = InsertText)
+boutonInsertTextStart.pack(side = LEFT, padx = 10) 
 
 frameSup = Frame(root, bg="pink", colormap="new")
 frameSup.pack(side = TOP, pady = 13)
 
 def InsertInfo():
-	showinfo("Info", "Ce programme dissimule du texte dans une image, et permet de lire le texte dissimuler dans une image donnée.")
+	print(boite1.winfo_exists())
 
 boutonInfo = Button(frameSup, text='Info', command = InsertInfo)
 boutonInfo.pack(side = RIGHT)
