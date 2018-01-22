@@ -19,6 +19,6 @@ MsgString="".join(MsgList)
 message=""
 
 for k in range(0,Stringlong):
-    l=MsgString[8*k:8*k+8]
-    message=message+chr(int(l,2))
+    StringFin=MsgString[8*k:8*k+8]
+    message=message+chr(int(StringFin,2))
 print(message)
