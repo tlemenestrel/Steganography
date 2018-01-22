@@ -4,22 +4,21 @@
 # Colin Laganier - Thomas Lemenestrel - 2017.12.13
 
 from PIL import Image
-im = Image.open("/Users/TLM/Desktop/Stéganographie.png")
-r,g,b,t=im.split()
+im = Image.open("/Users/TLM/Desktop/Stéganographie.png") # On importe l'image avec le message codé
+r,g,b,t=im.split() # On redivise l'image en rouge, vert, bleu transparent
 redPix2=list(r.getdata())
 #lecture de la longueur de la chaine
-Liste=[str(x%2) for x in redPix2[0:8]]
-String="".join(Liste)
+Listelong=[str(x%2) for x in redPix2[0:8]]
+Stringlong="".join(Listelong)
 
-String=int(String,2)
+Stringlong=int(Stringlong,2)
 #lecture du message
-n=[str(x%2) for x in redPix2[8:8*(String+1)]]
+MsgList=[str(x%2) for x in redPix2[8:8*(Stringlong+1)]]
 
-b="".join(n)
+MsgString="".join(MsgList)
 message=""
 
-for k in range(0,String):
-    l=b[8*k:8*k+8]
+for k in range(0,Stringlong):
+    l=MsgString[8*k:8*k+8]
     message=message+chr(int(l,2))
 print(message)
-
